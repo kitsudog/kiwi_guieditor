@@ -4,14 +4,15 @@
              xmlns:mx="library://ns.adobe.com/flex/mx"
              editable="true">
     <mx:columns>
-        <mx:DataGridColumn dataField="fontName"
+        <mx:DataGridColumn dataField="label"
                            editable="false"
                            headerText="属性"/>
-        <mx:DataGridColumn dataField="fontName"
-                           editable="true"
-                           headerText="值"
-                           itemRenderer="kiwi.guieditor.view.SmartRender"
-                           itemEditor="kiwi.guieditor.view.SmartEditor"
-                           sortable="false"/>
+        <mx:DataGridColumn
+                editable="true"
+                headerText="值"
+                itemRenderer="kiwi.guieditor.view.SmartRender"
+                itemEditor="kiwi.guieditor.view.SmartEditor"
+                editorDataField="value"
+                sortable="false"/>
     </mx:columns>
 </mx:DataGrid>

@@ -3,14 +3,13 @@ import kiwi.guieditor.event.EditorEvent;
 import kiwi.guieditor.model.config.AppConfig;
 import kiwi.guieditor.model.config.CataConfig;
 import kiwi.guieditor.model.config.ContainerConfig;
-import kiwi.guieditor.model.config.ControleConfig;
+import kiwi.guieditor.model.config.ControlConfig;
 import kiwi.guieditor.model.config.EditorConfig;
 import kiwi.guieditor.model.config.EnumConfig;
 import kiwi.guieditor.model.config.EnumValueConfig;
 import kiwi.guieditor.model.config.LibConfig;
 import kiwi.guieditor.model.config.PropertyConfig;
 import kiwi.guieditor.utils.readJSON;
-import kiwi.guieditor.view.Editor;
 
 import org.robotlegs.mvcs.Command;
 
@@ -62,8 +61,8 @@ public class LoadConfigCommand extends Command {
         for each (info in this.configObj["container"]) {
             config.container.push(merge(ContainerConfig, info));
         }
-        for each (info in this.configObj["controle"]) {
-            config.controle.push(merge(ControleConfig, info));
+        for each (info in this.configObj["control"]) {
+            config.controle.push(merge(ControlConfig, info));
         }
         // 加载Lib
         dispatch(new EditorEvent(EditorEvent.LOAD_LIBRARY));

@@ -38,7 +38,7 @@ public class LoadLibraryCommand extends Command {
             current = lib;
             current.$loading = true;
             dispatch(new EditorEvent(EditorEvent.LIBRARY_LOADING));
-            var loader = new Loader();
+            var loader:Loader = new Loader();
             loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
             loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
             loader.load(request, context);

@@ -2,47 +2,72 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:s="library://ns.adobe.com/flex/spark"
          initialize="init()"
-         implements="mx.controls.listClasses.IListItemRenderer">
+         width="100%"
+         height="100%"
+         left="1"
+         top="1"
+         right="1"
+         bottom="1"
+         implements="mx.controls.listClasses.IListItemRenderer"
+         horizontalCenter="0"
+         verticalCenter="0"
+        >
     <s:states>
         <s:State name="def"/>
-        <s:State name="text"/>
         <s:State name="input"/>
+        <s:State name="label"/>
         <s:State name="stepper"/>
         <s:State name="boolean"/>
         <s:State name="enum"/>
     </s:states>
     <fx:Script>
 		<![CDATA[
+        import kiwi.guieditor.model.PropertyInfo;
         import kiwi.guieditor.model.config.PropertyConfig;
-        import kiwi.guieditor.model.format.BooleanFormat;
-        import kiwi.guieditor.model.format.DoubleFormat;
-        import kiwi.guieditor.model.format.IntFormat;
-        import kiwi.guieditor.model.format.StringFormat;
+        import kiwi.guieditor.model.formator.BooleanFormator;
+        import kiwi.guieditor.model.formator.DoubleFormator;
+        import kiwi.guieditor.model.formator.IFormator;
+        import kiwi.guieditor.model.formator.IntFormator;
+        import kiwi.guieditor.model.formator.StringFormator;
+        import kiwi.guieditor.model.formator.UnknwonFormator;
 
-        protected var _data:PropertyConfig;
+        protected var _data:PropertyInfo;
 
+        [Bindable]
         public function get data():Object {
             return this._data;
         }
 
+        [Bindable]
         public function set data(data:Object):void {
-            this._data = PropertyConfig(data);
+            this._data = PropertyInfo(data);
             update();
         }
 
         protected function update():void {
             if (_data == null) {
                 currentState = 'def';
-            } else if (_data.format is IntFormat) {
-                currentState = 'stepper';
-            } else if (_data.format is DoubleFormat) {
+                return;
+            }
+            var formator:IFormator = _data.formator;
+            var _value = _data.value;
+            if (formator is IntFormator) {
                 currentState = 'label';
-            } else if (_data.format is StringFormat) {
+                label.text = _value;
+            } else if (formator is DoubleFormator) {
                 currentState = 'label';
-            } else if (_data.format is BooleanFormat) {
+                label.text = _value;
+            } else if (formator is StringFormator) {
+                currentState = 'label';
+                label.text = _value;
+            } else if (formator is BooleanFormator) {
                 currentState = 'boolean';
+                checkBox.selected = _value;
+            } else if (formator is UnknwonFormator) {
+                currentState = 'label';
+                label.text = _value;
             } else {
-                throw new Error("不认识的类型");
+                throw new Error("不支持的类型: " + formator);
             }
         }
 
@@ -54,23 +79,29 @@
     <s:Label id="defaultLabel"
              text="-"
              textAlign="center"
+             verticalAlign="middle"
              width="100%"
              height="100%"
              visible="false"
              visible.def="true"/>
     <s:Label id="label"
              textAlign="center"
+             verticalAlign="middle"
              width="100%"
              height="100%"
              visible="false"
-             visible.text="true"/>
+             visible.label="true"/>
     <s:TextInput id="textInput"
+                 width="100%"
+                 height="100%"
                  visible="false"
                  visible.input="true"/>
     <s:ComboBox id="comboBox"
                 visible="false"
                 visible.enum="true"/>
     <s:CheckBox id="checkBox"
+                width="100%"
+                height="100%"
                 visible="false"
                 visible.boolean="true"/>
     <s:NumericStepper id="stepper"

@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:s="library://ns.adobe.com/flex/spark"
-         xmlns:mx="library://ns.adobe.com/flex/mx" dragEnter="acceptDrag(event)" dragDrop="completeDrag(event)">
-    <s:Rect width="100%"
-            height="100%">
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         dragEnter="acceptDrag(event)"
+         dragDrop="completeDrag(event)"
+         dragExit="exitDrag(event)"
+        >
+    <s:Rect x="0" y="0" width="4096" height="4096">
         <s:fill>
             <s:LinearGradient>
-                <s:GradientEntry color="#777777"/>
+                <s:GradientEntry color="0x777777"/>
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
-
+    <s:Line xFrom="0" yFrom="2048" xTo="4096" yTo="2048">
+        <s:stroke>
+            <s:SolidColorStroke color="0x000000" weight="1" caps="square"/>
+        </s:stroke>
+    </s:Line>
+    <s:Line yFrom="0" xFrom="2048" yTo="4096" xTo="2048">
+        <s:stroke>
+            <s:SolidColorStroke color="0x000000" weight="1" caps="square"/>
+        </s:stroke>
+    </s:Line>
     <fx:Script><![CDATA[
         import kiwi.guieditor.event.OperateEvent;
-        import kiwi.guieditor.model.config.ControleConfig;
+        import kiwi.guieditor.model.config.ControlConfig;
 
         import mx.core.IUIComponent;
         import mx.events.DragEvent;
@@ -21,15 +33,21 @@
 
         private function acceptDrag(event:DragEvent):void {
             DragManager.acceptDragDrop(IUIComponent(event.currentTarget));
+            mouseChildren = false;
         }
 
         private function completeDrag(event:DragEvent):void {
+            mouseChildren = true;
             var data:* = event.dragSource.dataForFormat("itemsByIndex")[0];
-            if (data is ControleConfig) {
+            if (data is ControlConfig) {
                 dispatchEvent(new OperateEvent(OperateEvent.NEW, data, new Point(event.localX, event.localY)));
             } else {
                 throw new Error("未知的类型");
             }
+        }
+
+        private function exitDrag(event:DragEvent):void {
+            mouseChildren = true;
         }
         ]]></fx:Script>
 </s:Group>

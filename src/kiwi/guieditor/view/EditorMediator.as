@@ -1,7 +1,8 @@
 package kiwi.guieditor.view {
 import kiwi.guieditor.event.EditorEvent;
+import kiwi.guieditor.event.OperateEvent;
 import kiwi.guieditor.model.config.CataConfig;
-import kiwi.guieditor.model.config.ControleConfig;
+import kiwi.guieditor.model.config.ControlConfig;
 import kiwi.guieditor.model.config.EditorConfig;
 
 import org.robotlegs.mvcs.Mediator;
@@ -43,15 +44,15 @@ public class EditorMediator extends Mediator {
             return vbox;
         }
 
-        function newControle(controle:ControleConfig):void {
+        function newControle(controle:ControlConfig):void {
             var cata:Array = cataMap[controle.cata];
             cata.push(controle);
         }
 
-        config.cata.forEach(function (cata:CataConfig, i:int, v:Vector.<CataConfig>):void {
+        config.cata.forEach(function (cata:CataConfig, i:int, array:Array):void {
             ctrls.addElement(newCata(cata));
         });
-        config.controle.forEach(function (controle:ControleConfig, i:int, v:Vector.<ControleConfig>):void {
+        config.controle.forEach(function (controle:ControlConfig, i:int, a:Array):void {
             newControle(controle);
         });
         for (var cata:String in cataMap) {

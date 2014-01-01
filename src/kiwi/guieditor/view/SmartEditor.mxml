@@ -2,24 +2,58 @@
 <kv:SmartRender xmlns:fx="http://ns.adobe.com/mxml/2009"
                 xmlns:kv="kiwi.guieditor.view.*">
     <fx:Script>
-        import kiwi.guieditor.model.format.BooleanFormat;
-        import kiwi.guieditor.model.format.DoubleFormat;
-        import kiwi.guieditor.model.format.IntFormat;
-        import kiwi.guieditor.model.format.StringFormat;
+        import kiwi.guieditor.model.formator.BooleanFormator;
+        import kiwi.guieditor.model.formator.DoubleFormator;
+        import kiwi.guieditor.model.formator.IFormator;
+        import kiwi.guieditor.model.formator.IntFormator;
+        import kiwi.guieditor.model.formator.StringFormator;
+        import kiwi.guieditor.model.formator.UnknwonFormator;
 
-        override protected function update():void {
+        protected var _value:*;
+
+        public function get value():* {
+            var formator:IFormator = _data.formator;
+            if (formator is IntFormator) {
+                _value = textInput.text;
+            } else if (formator is DoubleFormator) {
+                _value = textInput.text;
+            } else if (formator is StringFormator) {
+                _value = textInput.text;
+            } else if (formator is BooleanFormator) {
+                _value = textInput.text;
+            } else if (formator is UnknwonFormator) {
+                _value = textInput.text;
+            } else {
+                throw new Error("不支持的类型: " + formator);
+            }
+            data.value = _value;
+            return _value;
+        }
+
+        protected override function update():void {
             if (_data == null) {
                 currentState = 'def';
-            } else if (_data.format is IntFormat) {
-                currentState = 'stepper';
-            } else if (_data.format is DoubleFormat) {
+                return;
+            }
+            var formator:IFormator = _data.formator;
+            _value = _data.value;
+            if (formator is IntFormator) {
                 currentState = 'input';
-            } else if (_data.format is StringFormat) {
+                textInput.text = _value;
+            } else if (formator is DoubleFormator) {
                 currentState = 'input';
-            } else if (_data.format is BooleanFormat) {
+                textInput.text = _value;
+            } else if (formator is StringFormator) {
+                currentState = 'input';
+                textInput.text = _value;
+            } else if (formator is BooleanFormator) {
                 currentState = 'boolean';
+                checkBox.selected = _value;
+            } else if (formator is UnknwonFormator) {
+                currentState = 'label';
+                label.text = _value;
             } else {
-                throw new Error("不认识的类型");
+                throw new Error("不支持的类型: " + formator);
             }
         }
     </fx:Script>

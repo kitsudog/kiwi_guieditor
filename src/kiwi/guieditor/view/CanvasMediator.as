@@ -1,5 +1,6 @@
 package kiwi.guieditor.view {
 import kiwi.guieditor.event.OperateEvent;
+import kiwi.guieditor.model.ImplInfo;
 
 import mx.core.IVisualElement;
 
@@ -16,9 +17,22 @@ public class CanvasMediator extends Mediator {
         // 转发view事件
         addViewListener(OperateEvent.NEW, dispatch);
         addViewListener(OperateEvent.DEL, dispatch);
+        addViewListener(OperateEvent.CLICK, dispatch);
         // 接收事件
         addContextListener(OperateEvent.ADD, onAdd);
         addContextListener(OperateEvent.DEL, onDel);
+        addContextListener(OperateEvent.SELECTED, onSelected);
+        addContextListener(OperateEvent.UNSELECTED, onUnselected);
+    }
+
+    private function onUnselected(event:OperateEvent):void {
+        var impl:ImplInfo = ImplInfo(event.object);
+        impl.dos.unselected();
+    }
+
+    private function onSelected(event:OperateEvent):void {
+        var impl:ImplInfo = ImplInfo(event.object);
+        impl.dos.selected();
     }
 
     private function onAdd(event:OperateEvent):void {
@@ -27,7 +41,7 @@ public class CanvasMediator extends Mediator {
             obj.x = event.pos.x;
             obj.y = event.pos.y;
         }
-        canvas.addElement(obj);
+        canvas..addElement(obj);
     }
 
     private function onDel(event:OperateEvent):void {
