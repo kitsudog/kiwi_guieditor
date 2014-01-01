@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/mx">
+    <s:states>
+        <s:State name="icon"/>
+        <s:State name="text"/>
+    </s:states>
+    <s:itemRenderer>
+        <fx:Component>
+            <s:ItemRenderer width="100%">
+                <s:HGroup width="100%">
+                    <mx:Image source="{data.icon}"
+                              height="13"
+                              width="13"
+                              verticalCenter="0"/>
+                    <s:Label text="{data.label}"/>
+                </s:HGroup>
+            </s:ItemRenderer>
+        </fx:Component>
+    </s:itemRenderer>
+</s:List>

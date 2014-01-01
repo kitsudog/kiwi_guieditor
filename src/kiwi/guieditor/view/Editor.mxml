@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+                   xmlns:s="library://ns.adobe.com/flex/spark"
+                   xmlns:mx="library://ns.adobe.com/flex/mx"
+                   xmlns:kv="kiwi.guieditor.view.*">
+    <s:HGroup width="100%"
+              height="100%">
+        <s:VGroup width="200"
+                  height="100%">
+            <s:Label text="ui设置"/>
+            <s:HGroup>
+                <s:CheckBox id="bg_lock"/>
+                <s:Image source="@Embed(source='../../../../assets/lock.png')"/>
+                <s:CheckBox id="bg_visible"/>
+                <s:Image source="@Embed(source='../../../../assets/visible.png')"/>
+                <s:Label text="背景"/>
+            </s:HGroup>
+            <s:HGroup>
+                <s:CheckBox id="ctrl_lock"/>
+                <s:Image source="@Embed(source='../../../../assets/lock.png')"/>
+                <s:CheckBox id="ctrl_visible"/>
+                <s:Image source="@Embed(source='../../../../assets/visible.png')"/>
+                <s:Label text="控件"/>
+            </s:HGroup>
+            <s:Button label="添加背景"/>
+            <mx:Accordion id="ctrls"
+                          width="100%"
+                          height="50%">
+            </mx:Accordion>
+            <kv:PropertyList width="100%"
+                             height="50%"/>
+        </s:VGroup>
+        <s:VGroup width="100%"
+                  height="100%">
+            <kv:Canvas width="100%"
+                       height="100%"/>
+            <s:HGroup width="100%"
+                      height="30">
+                <s:HScrollBar id="scale"
+                              width="30%"
+                              minimum="25"
+                              maximum="400"
+                              stepSize="25"
+                              value="100"/>
+                <s:Label text="{scale.value}%"/>
+            </s:HGroup>
+        </s:VGroup>
+    </s:HGroup>
+</s:BorderContainer>

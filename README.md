@@ -1,4 +1,3 @@
-kiwi_guieditor
-==============
-
-A simple gui editor base on xml.
+一个UI编辑器
+============
+实现一个基本的ui编辑器

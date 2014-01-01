@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         initialize="init()"
+         implements="mx.controls.listClasses.IListItemRenderer">
+    <s:states>
+        <s:State name="def"/>
+        <s:State name="text"/>
+        <s:State name="input"/>
+        <s:State name="stepper"/>
+        <s:State name="boolean"/>
+        <s:State name="enum"/>
+    </s:states>
+    <fx:Script>
+		<![CDATA[
+        import kiwi.guieditor.model.Property;
+        import kiwi.guieditor.model.format.BooleanFormat;
+        import kiwi.guieditor.model.format.DoubleFormat;
+        import kiwi.guieditor.model.format.IntFormat;
+        import kiwi.guieditor.model.format.StringFormat;
+
+        protected var _data:Property;
+
+        public function get data():Object {
+            return this._data;
+        }
+
+        public function set data(data:Object):void {
+            this._data = Property(data);
+            update();
+        }
+
+        protected function update():void {
+            if (_data == null) {
+                currentState = 'def';
+            } else if (_data.type is IntFormat) {
+                currentState = 'stepper';
+            } else if (_data.type is DoubleFormat) {
+                currentState = 'label';
+            } else if (_data.type is StringFormat) {
+                currentState = 'label';
+            } else if (_data.type is BooleanFormat) {
+                currentState = 'boolean';
+            } else {
+                throw new Error("不认识的类型");
+            }
+        }
+
+        private function init():void {
+            update();
+        }
+        ]]>
+	</fx:Script>
+    <s:Label id="defaultLabel"
+             text="-"
+             textAlign="center"
+             width="100%"
+             height="100%"
+             visible="false"
+             visible.def="true"/>
+    <s:Label id="label"
+             textAlign="center"
+             width="100%"
+             height="100%"
+             visible="false"
+             visible.text="true"/>
+    <s:TextInput id="textInput"
+                 visible="false"
+                 visible.input="true"/>
+    <s:ComboBox id="comboBox"
+                visible="false"
+                visible.enum="true"/>
+    <s:CheckBox id="checkBox"
+                visible="false"
+                visible.boolean="true"/>
+    <s:NumericStepper id="stepper"
+                      visible="false"
+                      visible.stepper="true"/>
+</s:Group>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:MenuBar xmlns:fx="http://ns.adobe.com/mxml/2009"
+            xmlns:s="library://ns.adobe.com/flex/spark"
+            xmlns:mx="library://ns.adobe.com/flex/mx"
+            width="100%"
+            dataProvider="{menuXML}"
+            labelField="@label">
+    <fx:Declarations>
+        <fx:XMLList id="menuXML">
+            <menuitem label="文件">
+                <menuitem label="新建"/>
+                <menuitem label="读取"/>
+                <menuitem label="保存"/>
+                <menuitem label="导出"/>
+            </menuitem>
+            <menuitem label="容器">
+            </menuitem>
+            <menuitem label="高级">
+                <menuitem label="批量导出"/>
+            </menuitem>
+        </fx:XMLList>
+    </fx:Declarations>
+</mx:MenuBar>
