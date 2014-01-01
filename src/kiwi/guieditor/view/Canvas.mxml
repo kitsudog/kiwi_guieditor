@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:s="library://ns.adobe.com/flex/spark"
-         xmlns:mx="library://ns.adobe.com/flex/mx">
+         xmlns:mx="library://ns.adobe.com/flex/mx" dragEnter="acceptDrag(event)" dragDrop="completeDrag(event)">
     <s:Rect width="100%"
             height="100%">
         <s:fill>
@@ -11,4 +11,25 @@
         </s:fill>
     </s:Rect>
 
+    <fx:Script><![CDATA[
+        import kiwi.guieditor.event.OperateEvent;
+        import kiwi.guieditor.model.config.ControleConfig;
+
+        import mx.core.IUIComponent;
+        import mx.events.DragEvent;
+        import mx.managers.DragManager;
+
+        private function acceptDrag(event:DragEvent):void {
+            DragManager.acceptDragDrop(IUIComponent(event.currentTarget));
+        }
+
+        private function completeDrag(event:DragEvent):void {
+            var data:* = event.dragSource.dataForFormat("itemsByIndex")[0];
+            if (data is ControleConfig) {
+                dispatchEvent(new OperateEvent(OperateEvent.NEW, data, new Point(event.localX, event.localY)));
+            } else {
+                throw new Error("未知的类型");
+            }
+        }
+        ]]></fx:Script>
 </s:Group>

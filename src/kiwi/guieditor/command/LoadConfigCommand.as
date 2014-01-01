@@ -5,9 +5,12 @@ import kiwi.guieditor.model.config.CataConfig;
 import kiwi.guieditor.model.config.ContainerConfig;
 import kiwi.guieditor.model.config.ControleConfig;
 import kiwi.guieditor.model.config.EditorConfig;
+import kiwi.guieditor.model.config.EnumConfig;
+import kiwi.guieditor.model.config.EnumValueConfig;
 import kiwi.guieditor.model.config.LibConfig;
 import kiwi.guieditor.model.config.PropertyConfig;
-import kiwi.guieditor.utils.readFile;
+import kiwi.guieditor.utils.readJSON;
+import kiwi.guieditor.view.Editor;
 
 import org.robotlegs.mvcs.Command;
 
@@ -28,6 +31,10 @@ public class LoadConfigCommand extends Command {
                 for each (var property:* in info[key]) {
                     obj["property"]["push"](merge(PropertyConfig, property));
                 }
+            } else if (key == "values") {
+                for each (var value:* in info[key]) {
+                    obj["values"]["push"](merge(EnumValueConfig, value));
+                }
             } else {
                 obj[key] = info[key];
             }
@@ -36,7 +43,9 @@ public class LoadConfigCommand extends Command {
     }
 
     override public function execute():void {
-        configObj = JSON.parse(readFile(event.data));
+        // TODO: 引入schema
+        //configObj = readJSON(event.data, "configSchema.json");
+        configObj = readJSON(event.data);
         var info:*;
         for each (info in this.configObj["app"]) {
             config.app.push(merge(AppConfig, info));
@@ -47,12 +56,17 @@ public class LoadConfigCommand extends Command {
         for each (info in this.configObj["cata"]) {
             config.cata.push(merge(CataConfig, info));
         }
+        for each (info in this.configObj["enum"]) {
+            config.enum.push(merge(EnumConfig, info));
+        }
         for each (info in this.configObj["container"]) {
             config.container.push(merge(ContainerConfig, info));
         }
         for each (info in this.configObj["controle"]) {
             config.controle.push(merge(ControleConfig, info));
         }
+        // 加载Lib
+        dispatch(new EditorEvent(EditorEvent.LOAD_LIBRARY));
     }
 }
 }

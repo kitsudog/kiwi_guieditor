@@ -4,5 +4,7 @@ package kiwi.guieditor.model.config {
  */
 public class LibConfig extends BaseConfig {
     public var src:String;
+    public var $loaded:Boolean = false;
+    public var $loading:Boolean = false;
 }
 }

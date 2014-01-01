@@ -1,178 +1,233 @@
 {
-	"app":[
-		{
-			"name":"春秋",
-			"src":"chunqiu.json"
-		}
-	],
-	"lib":[
-		{
-			"name":"fl",
-			"src":"def.swf"
-		}
-	],
-	"stylesheet":[
-		
-	],
-    "cata":[
+    "app": [
         {
-            "name":"def",
-            "label":"默认"
-        },
-        {
-            "name":"button",
-            "label":"按钮"
+            "name": "春秋",
+            "src": "chunqiu.json"
         }
     ],
-	"container":[
-		{
-			"comment":"标准的面板",
-			"label":"面板",
-			"name":"panel",
-			"$class":"fl.core.UIComponent",
-			"factory":{
-				"$class":"fl.core.UIComponent",
-				"width":340,
-				"height":200,
-				"mouseEnabled":false
-			},
-			"property":[
-				{
-					"name":"width",
-					"format":"Int",
-					"def":100,
-					"enum":false,
-					"readOnly":false
-				},
-				{
-					"name":"height",
-					"format":"Int",
-					"def":100,
-					"enum":false,
-					"readOnly":false
-				},
-				{
-					"name":"mouseEnabled",
-					"format":"Boolean",
-					"def":true,
-					"enum":false,
-					"readOnly":true
-				}
-			]
-		},
-		{
-			"comment":"标准的面板,没有屏蔽鼠标事件",
-			"label":"交互面板",
-			"name":"panel",
-			"$class":"fl.core.UIComponent",
-			"factory":{
-				"$class":"fl.core.UIComponent",
-				"width":340,
-				"height":200,
-				"mouseEnabled":true
-			},
-			"property":[
-				{
-					"name":"width",
-					"format":"Int",
-					"def":100,
-					"enum":false,
-					"readOnly":false
-				},
-				{
-					"name":"height",
-					"format":"Int",
-					"def":100,
-					"enum":false,
-					"readOnly":false
-				},
-				{
-					"name":"mouseEnabled",
-					"format":"Boolean",
-					"def":true,
-					"enum":false,
-					"readOnly":true
-				}
-			]
-		}
-	],
-	"controle":[
-		{
-			"comment":"按钮",
-			"label":"按钮",
-			"name":"button",
-			"cata":"def",
-			"$class":"fl.controls.Button",
-			"factory":{
-				"$class":"fl.controls.Button",
-				"width":100,
-				"height":50,
-				"label":"按钮"
-			},
-			"property":[
-				{
-					"name":"width",
-					"format":"Int",
-					"def":100,
-					"readOnly":false
-				},
-				{
-					"name":"height",
-					"format":"Int",
-					"def":100,
-					"readOnly":false
-				},
-				{
-					"name":"label",
-					"comment":"标签",
-					"format":"String",
-					"def":"Button"
-				},
-				{
-					"name":"embedFonts",
-					"format":"StyleBoolean"
-				},
-				{
-					"name":"upSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"downSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"overSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"disabledSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"selectedDisabledSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"selectedUpSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"selectedDownSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"selectedOverSkin",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"disabledTextFormat",
-					"format":"StyleSkin"
-				},
-				{
-					"name":"disabledTextFormat",
-					"format":"StyleTextFormat"
-				}
-			]
-		}
-	]
+    "lib": [
+        {
+            "name": "fl",
+            "src": "flash.swf"
+        },
+        {
+            "name": "fl_skin",
+            "src": "def.swf"
+        }
+    ],
+    "stylesheet": [
+
+    ],
+    "enum": [
+        {
+            "name": "align",
+            "comment": "对齐",
+            "format": "String",
+            "values": [
+                {
+                    "label": "无",
+                    "value": "none"
+                },
+                {
+                    "label": "左对齐",
+                    "value": "left"
+                },
+                {
+                    "label": "右对齐",
+                    "value": "right"
+                },
+                {
+                    "label": "居中",
+                    "value": "center"
+                }
+            ]
+        }
+    ],
+    "cata": [
+        {
+            "name": "def",
+            "label": "默认"
+        },
+        {
+            "name": "button",
+            "label": "按钮"
+        }
+    ],
+    "container": [
+        {
+            "comment": "标准的面板",
+            "label": "面板",
+            "name": "panel",
+            "$class": "fl.core.UIComponent",
+            "factory": {
+                "$class": "fl.core.UIComponent",
+                "width": 340,
+                "height": 200,
+                "mouseEnabled": false
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "mouseEnabled",
+                    "format": "Boolean",
+                    "def": true
+                }
+            ]
+        },
+        {
+            "comment": "标准的面板,没有屏蔽鼠标事件",
+            "label": "交互面板",
+            "name": "panel",
+            "$class": "fl.core.UIComponent",
+            "factory": {
+                "$class": "fl.core.UIComponent",
+                "width": 340,
+                "height": 200,
+                "mouseEnabled": true
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "mouseEnabled",
+                    "format": "Boolean",
+                    "def": true
+                }
+            ]
+        }
+    ],
+    "controle": [
+        {
+            "comment": "按钮",
+            "label": "按钮",
+            "name": "button",
+            "cata": "def",
+            "$class": "fl.controls.Button",
+            "factory": {
+                "$class": "fl.controls.Button",
+                "width": 100,
+                "height": 50,
+                "label": "按钮"
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "label",
+                    "comment": "标签",
+                    "format": "String",
+                    "def": "Button"
+                },
+                {
+                    "name": "embedFonts",
+                    "format": "StyleBoolean"
+                },
+                {
+                    "name": "upSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "downSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "overSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "disabledSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "selectedDisabledSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "selectedUpSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "selectedDownSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "selectedOverSkin",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "disabledTextFormat",
+                    "format": "StyleSkin"
+                },
+                {
+                    "name": "disabledTextFormat",
+                    "format": "StyleTextFormat"
+                }
+            ]
+        },
+        {
+            "comment": "标签",
+            "label": "标签",
+            "name": "label",
+            "cata": "def",
+            "$class": "fl.controls.Label",
+            "factory": {
+                "$class": "fl.controls.Label",
+                "width": 100,
+                "height": 35,
+                "text": "标签",
+                "wordWrap": false,
+                "autoSize": "none"
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "def": 100,
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "def": 100,
+                    "format": "Int"
+                },
+                {
+                    "name": "text",
+                    "format": "String"
+                },
+                {
+                    "name": "autoSize",
+                    "format": "String",
+                    "enum": "align"
+                },
+                {
+                    "name": "wordWrap",
+                    "format": "Boolean"
+                }
+            ]
+        }
+    ]
 }

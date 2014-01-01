@@ -1,0 +1,77 @@
+{
+    "name": "GUI Editor Config Schema",
+    "description": "UI编辑器的配置文件检查",
+    "type": "object",
+    "properties": {
+        "app": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "src": {
+                        "type": "string",
+                        "required": true
+                    }
+                }
+            }
+        },
+        "lib": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "src": {
+                        "type": "string",
+                        "required": true
+                    }
+                }
+            }
+        },
+        "stylesheet": {
+            "type": "array",
+            "items": {
+            }
+        },
+        "enum": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "format": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "label": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "value": {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

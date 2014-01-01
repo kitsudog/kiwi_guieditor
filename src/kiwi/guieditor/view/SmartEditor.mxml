@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <kv:SmartRender xmlns:fx="http://ns.adobe.com/mxml/2009"
-                xmlns:s="library://ns.adobe.com/flex/spark"
-                xmlns:kv="kiwi.guieditor.view.*"
-                xmlns:mx="library://ns.adobe.com/flex/mx">
-    <fx:Script>            import kiwi.guieditor.model.Property;
-    import kiwi.guieditor.model.format.BooleanFormat;
-    import kiwi.guieditor.model.format.DoubleFormat;
-    import kiwi.guieditor.model.format.IntFormat;
-    import kiwi.guieditor.model.format.StringFormat;
+                xmlns:kv="kiwi.guieditor.view.*">
+    <fx:Script>
+        import kiwi.guieditor.model.format.BooleanFormat;
+        import kiwi.guieditor.model.format.DoubleFormat;
+        import kiwi.guieditor.model.format.IntFormat;
+        import kiwi.guieditor.model.format.StringFormat;
 
-    override protected function update():void {
-        if (_data == null) {
-            currentState = 'def';
-        } else if (_data.type is IntFormat) {
-            currentState = 'stepper';
-        } else if (_data.type is DoubleFormat) {
-            currentState = 'input';
-        } else if (_data.type is StringFormat) {
-            currentState = 'input';
-        } else if (_data.type is BooleanFormat) {
-            currentState = 'boolean';
-        } else {
-            throw new Error("不认识的类型");
+        override protected function update():void {
+            if (_data == null) {
+                currentState = 'def';
+            } else if (_data.format is IntFormat) {
+                currentState = 'stepper';
+            } else if (_data.format is DoubleFormat) {
+                currentState = 'input';
+            } else if (_data.format is StringFormat) {
+                currentState = 'input';
+            } else if (_data.format is BooleanFormat) {
+                currentState = 'boolean';
+            } else {
+                throw new Error("不认识的类型");
+            }
         }
-    }
     </fx:Script>
 </kv:SmartRender>

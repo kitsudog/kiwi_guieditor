@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:s="library://ns.adobe.com/flex/spark"
-         xmlns:mx="library://ns.adobe.com/flex/mx"
          initialize="init()"
          implements="mx.controls.listClasses.IListItemRenderer">
     <s:states>
@@ -14,33 +13,33 @@
     </s:states>
     <fx:Script>
 		<![CDATA[
-        import kiwi.guieditor.model.Property;
+        import kiwi.guieditor.model.config.PropertyConfig;
         import kiwi.guieditor.model.format.BooleanFormat;
         import kiwi.guieditor.model.format.DoubleFormat;
         import kiwi.guieditor.model.format.IntFormat;
         import kiwi.guieditor.model.format.StringFormat;
 
-        protected var _data:Property;
+        protected var _data:PropertyConfig;
 
         public function get data():Object {
             return this._data;
         }
 
         public function set data(data:Object):void {
-            this._data = Property(data);
+            this._data = PropertyConfig(data);
             update();
         }
 
         protected function update():void {
             if (_data == null) {
                 currentState = 'def';
-            } else if (_data.type is IntFormat) {
+            } else if (_data.format is IntFormat) {
                 currentState = 'stepper';
-            } else if (_data.type is DoubleFormat) {
+            } else if (_data.format is DoubleFormat) {
                 currentState = 'label';
-            } else if (_data.type is StringFormat) {
+            } else if (_data.format is StringFormat) {
                 currentState = 'label';
-            } else if (_data.type is BooleanFormat) {
+            } else if (_data.format is BooleanFormat) {
                 currentState = 'boolean';
             } else {
                 throw new Error("不认识的类型");

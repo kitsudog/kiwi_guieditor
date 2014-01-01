@@ -13,11 +13,18 @@ public class EditorEvent extends Event {
     public static const EXPORT_ADV:String = "EditorEvent::EXPORT_ADV";
     public static const LOAD_CONFIG:String = "EditorEvent::LOAD_CONFIG";
     public static const APPLY_CONFIG:String = "EditorEvent::APPLY_CONFIG";
+    public static const LOAD_LIBRARY:String = "EditorEvent::LOAD_LIBRARY";
+    public static const LIBRARY_LOADING:String = "EditorEvent::LIBRARY_LOADING";
+    public static const LIBRARY_LOADED:String = "EditorEvent::LIBRARY_LOADED";
     public var data:String;
 
     public function EditorEvent(type:String, data:String = null) {
         super(type);
         this.data = data;
+    }
+
+    override public function clone():Event {
+        return new EditorEvent(type, data);
     }
 }
 }
