@@ -41,6 +41,7 @@ public class ArrayUtils {
     /**
      * 将一个byteArray转换为Array<br>
      * @param ba
+     * @param uLen
      */
     public static function parseFromByteArray(ba:ByteArray, uLen:int = 1):Array {
         var result:Array = [];
@@ -105,7 +106,9 @@ public class ArrayUtils {
 
     /**
      * 获取最大的那个
+     * @param src
      * @param compare
+     * @param thisArgs
      * @return 当数组为空时返回null, 否则返回指定<b>项</b>
      *    <ul>
      *        <li>null: 按数值做比较</li>
@@ -142,7 +145,9 @@ public class ArrayUtils {
 
     /**
      * 获取最小的那个
+     * @param src
      * @param compare
+     * @param thisArgs
      * @return 当数组为空时返回null, 否则返回指定<b>项</b>
      *    <ul>
      *        <li>null: 按数值做比较</li>
@@ -181,7 +186,7 @@ public class ArrayUtils {
      * @return not null
      */
     public static function select(src:Array, selector:Function, thisArg:* = null):Array {
-        var resutl:Array = new Array();
+        var resutl:Array = [];
         var index:int = 0;
         while (index < src.length) {
             var elem:* = src[index];
@@ -197,8 +202,10 @@ public class ArrayUtils {
 
     /**
      * 剔除满足条件的项(不影响源数组)
+     * @param src
      * @param prop 选择器
      * @param value 指定的值(默认为布尔值true)
+     * @param thisArgs
      * @return not null
      */
     public static function reject(src:Array, prop:*, value:* = true, thisArgs:* = null):Array {
@@ -212,8 +219,10 @@ public class ArrayUtils {
 
     /**
      * 剔除满足条件的项(不影响源数组)
+     * @param src 选择器
      * @param prop 选择器
-     * @param value 指定的值(默认为布尔值true)
+     * @param valueSet 指定的值(默认为布尔值true)
+     * @param thisArgs
      * @return not null
      */
     public static function rejectBySet(src:Array, prop:*, valueSet:Array, thisArgs:* = null):Array {
@@ -227,8 +236,10 @@ public class ArrayUtils {
 
     /**
      * 选择满足条件的项
+     * @param src
      * @param prop 选择器
      * @param value 指定的值(默认为布尔值true)
+     * @param thisArgs
      * @return not null
      */
     public static function find(src:Array, prop:*, value:* = true, thisArgs:* = null):Array {
@@ -256,8 +267,10 @@ public class ArrayUtils {
 
     /**
      * 选择满足条件的项
+     * @param src
      * @param prop 选择器
-     * @param value 指定的值(默认为布尔值true)
+     * @param valueSet 指定的值(默认为布尔值true)
+     * @param thisArgs 指定的值(默认为布尔值true)
      * @return not null
      */
     public static function findBySet(src:Array, prop:*, valueSet:Array, thisArgs:* = null):Array {
@@ -301,7 +314,7 @@ public class ArrayUtils {
                 return null;
             }
         }
-        throw new Error("Invalid prop: " + encodeJson(src));
+        throw new Error("Invalid prop: " + JSON.stringify(src));
     }
 
     /**
@@ -466,12 +479,14 @@ public class ArrayUtils {
                 elem = flatten(elem);
             }
             return (result.concat(elem));
-        }, new Array());
+        }, []);
     }
 
     /**
      * 转换
+     * @param src
      * @param f function(e:*):*
+     * @param thisArg
      * @return not null
      */
     public static function transform(src:Array, f:Function, thisArg:* = null):Array {
@@ -480,7 +495,6 @@ public class ArrayUtils {
         }
         var thisObject:* = thisArg;
         return src.map(function (element:*, index:int, arr:Array):* {
-            index;
             return (f.call(((thisObject) || (arr)), element));
         });
     }
@@ -537,7 +551,7 @@ public class ArrayUtils {
      */
     private static function randomArray(len:int):Array {
         var list:Array = [];
-        var i:int = 0;
+        var i:int;
         for (i = 0; i < len; i++) {
             list[i] = i;
         }
@@ -820,10 +834,7 @@ public class ArrayUtils {
         if (!source) {
             return true;
         }
-        if (source.length == 0) {
-            return true;
-        }
-        return false;
+        return source.length == 0;
     }
 
     [Inline]
@@ -867,20 +878,6 @@ public class ArrayUtils {
     }
 
     /**
-     * 依据,分割转换为数组
-     */
-    public static function fromDotString(str:String, clz:Class = null):Array {
-        if (clz == String || clz == null) {
-            return str.split(",");
-        }
-        return str.split(",").map(function (item:*, index:int, array:Array):* {
-            index;
-            array;
-            return TypeHelper.castTo(item, clz);
-        });
-    }
-
-    /**
      * 多个数组的调用
      */
     public static function forEachByArray(func:Function, src:Array, ...srcList):Array {
@@ -901,7 +898,7 @@ public class ArrayUtils {
      * 创建去重的版本
      */
     public static function createUniqueCopy(a:Array):Array {
-        var newArray:Array = new Array();
+        var newArray:Array = [];
 
         var len:Number = a.length;
         var item:Object;

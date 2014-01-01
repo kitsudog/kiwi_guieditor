@@ -10,6 +10,7 @@ import kiwi.guieditor.model.config.EnumValueConfig;
 import kiwi.guieditor.model.config.LibConfig;
 import kiwi.guieditor.model.config.PropertyConfig;
 import kiwi.guieditor.utils.readJSON;
+import kiwi.guieditor.utils.sprintf;
 
 import org.robotlegs.mvcs.Command;
 
@@ -23,7 +24,7 @@ public class LoadConfigCommand extends Command {
     public var event:EditorEvent;
     private var configObj:*;
 
-    private function merge(clz:Class, info:*):* {
+    private static function merge(clz:Class, info:*):* {
         var obj:* = new clz();
         for (var key:String in info) {
             if (key == "property") {
@@ -35,7 +36,11 @@ public class LoadConfigCommand extends Command {
                     obj["values"]["push"](merge(EnumValueConfig, value));
                 }
             } else {
-                obj[key] = info[key];
+                if (obj.hasOwnProperty(key)) {
+                    obj[key] = info[key];
+                } else {
+                    throw new Error(sprintf("%s 不存在字段 %s", clz, key));
+                }
             }
         }
         return obj;

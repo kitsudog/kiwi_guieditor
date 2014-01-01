@@ -19,7 +19,9 @@ public class Formator {
             case "String":
                 return StringFormator.instance;
             case "StyleBoolean":
+                return UnknwonFormator.instance;
             case "StyleSkin":
+                return UnknwonFormator.instance;
             case "StyleTextFormat":
                 return UnknwonFormator.instance;
             default :

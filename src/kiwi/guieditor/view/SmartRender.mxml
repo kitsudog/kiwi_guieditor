@@ -38,7 +38,6 @@
             return this._data;
         }
 
-        [Bindable]
         public function set data(data:Object):void {
             this._data = PropertyInfo(data);
             update();
@@ -50,7 +49,7 @@
                 return;
             }
             var formator:IFormator = _data.formator;
-            var _value = _data.value;
+            var _value:* = _data.value;
             if (formator is IntFormator) {
                 currentState = 'label';
                 label.text = _value;

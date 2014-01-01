@@ -138,7 +138,6 @@ public function sprintf(format:String, ...args):String {
 
                     result += str;
                     break;
-
                 case "o":
                     next = args.shift();
                     str = uint(next).toString(8);

@@ -221,7 +221,7 @@
                 {
                     "name": "autoSize",
                     "format": "String",
-                    "enum": "align"
+                    "enumRef": "align"
                 },
                 {
                     "name": "wordWrap",
