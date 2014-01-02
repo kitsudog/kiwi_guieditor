@@ -6,10 +6,15 @@
  * To change this template use File | Settings | File Templates.
  */
 package kiwi.guieditor.model {
+import flash.events.EventDispatcher;
+
+import kiwi.guieditor.model.config.EnumValueConfig;
+
 import kiwi.guieditor.model.config.PropertyConfig;
 import kiwi.guieditor.model.formator.IFormator;
+import kiwi.guieditor.utils.ArrayUtils;
 
-public class PropertyInfo {
+public class PropertyInfo extends EventDispatcher {
     public var label:String;
     public var impl:ImplInfo;
     public var property:PropertyConfig;
@@ -22,12 +27,22 @@ public class PropertyInfo {
         this.formator = property.formator;
     }
 
+    [Bindable]
     public function get value():* {
-        return formator.getBy(impl.dos.orig, property);
+        var result:* = formator.getBy(impl.dos.orig, property);
+        if (property.enumRef) {
+            return ArrayUtils.findFirst(property.enums, "value", result);
+        } else {
+            return result;
+        }
     }
 
     public function set value(value:*):void {
-        formator.setBy(impl.dos.orig, property, value);
+        if (value is EnumValueConfig) {
+            formator.setBy(impl.dos.orig, property, value.value);
+        } else {
+            formator.setBy(impl.dos.orig, property, value);
+        }
     }
 }
 }

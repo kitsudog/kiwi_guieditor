@@ -13,6 +13,7 @@ public class OperateEvent extends Event {
     public static const CLICK:String = "OperateEvent::CLICK";
     public static const SELECTED:String = "OperateEvent::SELECTED";
     public static const UNSELECTED:String = "OperateEvent::UNSELECTED";
+    public static const UPDATE:String = "OperateEvent::UPDATE";
     public var object:*;
     public var pos:Point;
 

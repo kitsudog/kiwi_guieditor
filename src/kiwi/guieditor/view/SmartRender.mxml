@@ -23,7 +23,7 @@
     <fx:Script>
 		<![CDATA[
         import kiwi.guieditor.model.PropertyInfo;
-        import kiwi.guieditor.model.config.PropertyConfig;
+        import kiwi.guieditor.model.config.EnumValueConfig;
         import kiwi.guieditor.model.formator.BooleanFormator;
         import kiwi.guieditor.model.formator.DoubleFormator;
         import kiwi.guieditor.model.formator.IFormator;
@@ -48,25 +48,23 @@
                 currentState = 'def';
                 return;
             }
-            var formator:IFormator = _data.formator;
-            var _value:* = _data.value;
-            if (formator is IntFormator) {
+            if (_data.property.enumRef) {
                 currentState = 'label';
-                label.text = _value;
-            } else if (formator is DoubleFormator) {
-                currentState = 'label';
-                label.text = _value;
-            } else if (formator is StringFormator) {
-                currentState = 'label';
-                label.text = _value;
-            } else if (formator is BooleanFormator) {
-                currentState = 'boolean';
-                checkBox.selected = _value;
-            } else if (formator is UnknwonFormator) {
-                currentState = 'label';
-                label.text = _value;
             } else {
-                throw new Error("不支持的类型: " + formator);
+                var formator:IFormator = _data.formator;
+                if (formator is IntFormator) {
+                    currentState = 'label';
+                } else if (formator is DoubleFormator) {
+                    currentState = 'label';
+                } else if (formator is StringFormator) {
+                    currentState = 'label';
+                } else if (formator is BooleanFormator) {
+                    currentState = 'label';
+                } else if (formator is UnknwonFormator) {
+                    currentState = 'label';
+                } else {
+                    throw new Error("不支持的类型: " + formator);
+                }
             }
         }
 
@@ -88,22 +86,7 @@
              verticalAlign="middle"
              width="100%"
              height="100%"
+             text="{data.value is EnumValueConfig?data.value.label:data.value}"
              visible="false"
              visible.label="true"/>
-    <s:TextInput id="textInput"
-                 width="100%"
-                 height="100%"
-                 visible="false"
-                 visible.input="true"/>
-    <s:ComboBox id="comboBox"
-                visible="false"
-                visible.enum="true"/>
-    <s:CheckBox id="checkBox"
-                width="100%"
-                height="100%"
-                visible="false"
-                visible.boolean="true"/>
-    <s:NumericStepper id="stepper"
-                      visible="false"
-                      visible.stepper="true"/>
 </s:Group>

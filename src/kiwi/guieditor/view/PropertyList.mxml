@@ -2,17 +2,49 @@
 <mx:DataGrid xmlns:fx="http://ns.adobe.com/mxml/2009"
              xmlns:s="library://ns.adobe.com/flex/spark"
              xmlns:mx="library://ns.adobe.com/flex/mx"
-             editable="true">
+             styleName="data"
+             editable="true"
+             headerHeight="21"
+             rowHeight="23">
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+
+        .data {
+            backgroundAlpha: 1;
+            backgroundColor: #FFFFFF;
+            alternatingItemColors: #F0F0F0, #FFFFFF;
+            horizontalGridLines: false;
+            letterSpacing: 0;
+            horizontalGridLineColor: #B2B2B2;
+            verticalGridLineColor: #B2B2B2;
+            rollOverColor: #BDEAF5;
+            textRollOverColor: #000000;
+            borderThickness: 0;
+            border-style: none;
+            selectionColor: #63BACF;
+            color: #000000;
+            textSelectedColor: #000000;
+            textIndent: 0;
+            dropShadowEnabled: false;
+            text-align: left;
+            padding-left: 20;
+            fontWeight: normal;
+            symbolColor: #545454;
+        }
+    </fx:Style>
     <mx:columns>
         <mx:DataGridColumn dataField="label"
                            editable="false"
                            headerText="属性"/>
         <mx:DataGridColumn
+                dataField="value"
                 editable="true"
                 headerText="值"
                 itemRenderer="kiwi.guieditor.view.SmartRender"
                 itemEditor="kiwi.guieditor.view.SmartEditor"
                 editorDataField="value"
-                sortable="false"/>
+                sortable="false"
+                />
     </mx:columns>
 </mx:DataGrid>

@@ -1,6 +1,4 @@
 package kiwi.guieditor.model.config {
-import flash.filesystem.File;
-
 /**
  * @author zhangming.luo
  */

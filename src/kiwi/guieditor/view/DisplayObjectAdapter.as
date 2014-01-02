@@ -8,10 +8,7 @@
 package kiwi.guieditor.view {
 import flash.display.DisplayObject;
 import flash.display.Shape;
-import flash.events.MouseEvent;
-import flash.filters.GlowFilter;
-
-import kiwi.guieditor.event.OperateEvent;
+import flash.events.Event;
 
 import mx.core.UIComponent;
 
@@ -24,31 +21,27 @@ public class DisplayObjectAdapter extends UIComponent {
         this.addChild(displayObject);
         this.mouseChildren = false;
         selectedMask = new Shape();
+        updateMask();
+        addChildAt(selectedMask, 0);
+        unselected();
+        displayObject.addEventListener(Event.RESIZE, onResize, false, 0, true);
+        displayObject.addEventListener(Event.RESIZE, onResize, false, 0, true);
+    }
+
+    public function updateMask():void {
+        selectedMask.graphics.clear();
         selectedMask.graphics.lineStyle(2, 0x00ff00);
         selectedMask.graphics.drawRect(-2, -2, displayObject.width + 4, displayObject.height + 4);
-        addChildAt(selectedMask, 0);
-        addEventListener(MouseEvent.ROLL_OVER, handleRoll);
-        addEventListener(MouseEvent.ROLL_OUT, handleRoll);
-        addEventListener(MouseEvent.MOUSE_DOWN, handleMouse);
-        addEventListener(MouseEvent.MOUSE_UP, handleMouse);
-        unselected();
+        graphics.clear();
+        graphics.beginFill(0xffffff, 0.001);
+        graphics.drawRect(0, 0, displayObject.width, displayObject.height);
+        graphics.endFill();
     }
 
-    private function handleMouse(event:MouseEvent):void {
-        if (event.type == MouseEvent.MOUSE_DOWN) {
-            startDrag();
-            dispatchEvent(new OperateEvent(OperateEvent.CLICK, this));
-        } else if (event.type == MouseEvent.MOUSE_UP) {
-            stopDrag();
-        }
-    }
-
-    private function handleRoll(event:MouseEvent):void {
-        if (event.type == MouseEvent.ROLL_OVER) {
-            this.filters = [new GlowFilter(0xff0000)];
-        } else if (event.type == MouseEvent.ROLL_OUT) {
-            this.filters = null;
-        }
+    private function onResize(event:Event):void {
+        updateMask();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
     }
 
     public function selected():void {

@@ -35,6 +35,8 @@ public class EditorMediator extends Mediator {
         function newCata(cata:CataConfig):VBox {
             var vbox:VBox = new VBox();
             vbox.label = cata.label;
+            vbox.percentWidth = 100;
+            vbox.percentHeight = 100;
             var list:ControleList = new ControleList();
             list.percentWidth = 100;
             list.percentHeight = 100;

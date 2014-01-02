@@ -8,8 +8,12 @@ import kiwi.guieditor.model.formator.IFormator;
 public class PropertyConfig extends BaseConfig {
     public var readOnly:Boolean = false;
     public var def:*;
-    public var enumRef:Boolean;
+    public var enumRef:String;
     public var format:String;
+
+    public function get enums():Array {
+        return EnumConfig.byName(enumRef).values;
+    }
 
     public function get formator():IFormator {
         return Formator.byName(format);

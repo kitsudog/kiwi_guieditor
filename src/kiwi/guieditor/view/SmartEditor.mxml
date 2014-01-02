@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<kv:SmartRender xmlns:fx="http://ns.adobe.com/mxml/2009"
-                xmlns:kv="kiwi.guieditor.view.*">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         initialize="init()"
+         width="100%"
+         height="100%"
+         left="1"
+         top="1"
+         right="1"
+         bottom="1"
+         implements="mx.controls.listClasses.IListItemRenderer"
+         horizontalCenter="0"
+         verticalCenter="0">
+    <s:states>
+        <s:State name="def"/>
+        <s:State name="input"/>
+        <s:State name="label"/>
+        <s:State name="stepper"/>
+        <s:State name="boolean"/>
+        <s:State name="enum"/>
+    </s:states>
     <fx:Script>
+        import kiwi.guieditor.event.OperateEvent;
+        import kiwi.guieditor.model.PropertyInfo;
         import kiwi.guieditor.model.formator.BooleanFormator;
         import kiwi.guieditor.model.formator.DoubleFormator;
         import kiwi.guieditor.model.formator.IFormator;
@@ -9,52 +29,106 @@
         import kiwi.guieditor.model.formator.StringFormator;
         import kiwi.guieditor.model.formator.UnknwonFormator;
 
+        import mx.collections.ArrayCollection;
+
+        protected var _data:PropertyInfo;
+
+        [Bindable]
+        public function get data():Object {
+            return this._data;
+        }
+
+        public function set data(data:Object):void {
+            this._data = PropertyInfo(data);
+            update();
+        }
+
         protected var _value:*;
 
         public function get value():* {
-            var formator:IFormator = _data.formator;
-            if (formator is IntFormator) {
-                _value = textInput.text;
-            } else if (formator is DoubleFormator) {
-                _value = textInput.text;
-            } else if (formator is StringFormator) {
-                _value = textInput.text;
-            } else if (formator is BooleanFormator) {
-                _value = textInput.text;
-            } else if (formator is UnknwonFormator) {
-                _value = textInput.text;
+            if (_data.property.enumRef) {
+                _value = comboBox.selectedItem;
             } else {
-                throw new Error("不支持的类型: " + formator);
+                var formator:IFormator = _data.formator;
+                if (formator is IntFormator) {
+                    _value = textInput.text;
+                } else if (formator is DoubleFormator) {
+                    _value = textInput.text;
+                } else if (formator is StringFormator) {
+                    _value = textInput.text;
+                } else if (formator is BooleanFormator) {
+                    _value = booleanBox.selectedIndex == 1;
+                } else if (formator is UnknwonFormator) {
+                    _value = textInput.text;
+                } else {
+                    throw new Error("不支持的类型: " + formator);
+                }
             }
-            data.value = _value;
+            _data.value = _value;
             return _value;
         }
 
-        protected override function update():void {
+        private function init():void {
+            update();
+        }
+
+        protected function update():void {
             if (_data == null) {
                 currentState = 'def';
                 return;
             }
-            var formator:IFormator = _data.formator;
-            _value = _data.value;
-            if (formator is IntFormator) {
-                currentState = 'input';
-                textInput.text = _value;
-            } else if (formator is DoubleFormator) {
-                currentState = 'input';
-                textInput.text = _value;
-            } else if (formator is StringFormator) {
-                currentState = 'input';
-                textInput.text = _value;
-            } else if (formator is BooleanFormator) {
-                currentState = 'boolean';
-                checkBox.selected = _value;
-            } else if (formator is UnknwonFormator) {
-                currentState = 'label';
-                label.text = _value;
+            if (_data.property.enumRef) {
+                currentState = 'enum';
             } else {
-                throw new Error("不支持的类型: " + formator);
+                var formator:IFormator = _data.formator;
+                if (formator is IntFormator) {
+                    currentState = 'input';
+                } else if (formator is DoubleFormator) {
+                    currentState = 'input';
+                } else if (formator is StringFormator) {
+                    currentState = 'input';
+                } else if (formator is BooleanFormator) {
+                    currentState = 'boolean';
+                } else if (formator is UnknwonFormator) {
+                    currentState = 'label';
+                } else {
+                    throw new Error("不支持的类型: " + formator);
+                }
             }
         }
     </fx:Script>
-</kv:SmartRender>
+    <s:TextInput id="textInput"
+                 width="100%"
+                 height="100%"
+                 visible="false"
+                 text="{data.value}"
+                 visible.input="true"/>
+    <s:DropDownList id="comboBox"
+                    width="100%"
+                    height="100%"
+                    labelField="label"
+                    visible="false"
+                    visible.enum="true"
+                    selectedItem.enum="{data.value}"
+                    dataProvider="{new ArrayCollection(data.property.enums)}"
+                    change="{dispatchEvent(new OperateEvent(OperateEvent.UPDATE,data))}"/>
+    <s:DropDownList id="booleanBox"
+                    width="100%"
+                    height="100%"
+                    visible="false"
+                    enabled="false"
+                    selectedIndex="{data.value}"
+                    visible.boolean="true"
+                    enabled.boolean="true"
+                    change="{dispatchEvent(new OperateEvent(OperateEvent.UPDATE,data))}">
+        <s:dataProvider>
+            <s:ArrayList>
+                <fx:Object name="false" label="false" value="false"/>
+                <fx:Object name="true" label="true" value="true"/>
+            </s:ArrayList>
+        </s:dataProvider>
+    </s:DropDownList>
+    <s:NumericStepper id="stepper"
+                      visible="false"
+                      visible.stepper="true"/>
+</s:Group>

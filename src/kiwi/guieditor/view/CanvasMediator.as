@@ -17,7 +17,6 @@ public class CanvasMediator extends Mediator {
         // 转发view事件
         addViewListener(OperateEvent.NEW, dispatch);
         addViewListener(OperateEvent.DEL, dispatch);
-        addViewListener(OperateEvent.CLICK, dispatch);
         // 接收事件
         addContextListener(OperateEvent.ADD, onAdd);
         addContextListener(OperateEvent.DEL, onDel);

@@ -2,6 +2,8 @@
  * Created by Mage on 13-12-31.
  */
 package kiwi.guieditor {
+import com.demonsters.debugger.MonsterDebugger;
+
 import kiwi.guieditor.command.ApplyConfigCommand;
 import kiwi.guieditor.command.DelControlCommand;
 import kiwi.guieditor.command.GuiEditorStartupCommand;
@@ -13,8 +15,10 @@ import kiwi.guieditor.event.EditorEvent;
 import kiwi.guieditor.event.OperateEvent;
 import kiwi.guieditor.model.EditorInfo;
 import kiwi.guieditor.model.config.EditorConfig;
+import kiwi.guieditor.view.AdapterMediator;
 import kiwi.guieditor.view.Canvas;
 import kiwi.guieditor.view.CanvasMediator;
+import kiwi.guieditor.view.DisplayObjectAdapter;
 import kiwi.guieditor.view.Editor;
 import kiwi.guieditor.view.EditorMediator;
 import kiwi.guieditor.view.Main;
@@ -44,6 +48,7 @@ public class AppContext extends Context {
         mediatorMap.mapView(SmartRender, SmartRenderMediator);
         mediatorMap.mapView(SmartEditor, SmartEditorMediator);
         mediatorMap.mapView(PropertyList, PropertyListMediator);
+        mediatorMap.mapView(DisplayObjectAdapter, AdapterMediator);
 
         commandMap.mapEvent(ContextEvent.STARTUP_COMPLETE, GuiEditorStartupCommand);
         commandMap.mapEvent(EditorEvent.LOAD_CONFIG, LoadConfigCommand);
@@ -53,6 +58,8 @@ public class AppContext extends Context {
         commandMap.mapEvent(OperateEvent.NEW, NewControlCommand);
         commandMap.mapEvent(OperateEvent.DEL, DelControlCommand);
         commandMap.mapEvent(OperateEvent.CLICK, SelectedControlCommand);
+
+        MonsterDebugger.initialize(contextView);
 
         super.startup();
     }

@@ -1,10 +1,10 @@
 package kiwi.guieditor.model.config {
-import flash.events.EventDispatcher;
+import kiwi.guieditor.model.BaseModel;
 
 /**
  * @author zhangming.luo
  */
-internal class BaseConfig extends EventDispatcher {
+internal class BaseConfig extends BaseModel {
     [Bindable]
     public var comment:String;
     [Bindable]
