@@ -11,7 +11,6 @@ import kiwi.guieditor.model.ImplInfo;
 import kiwi.guieditor.model.PropertyInfo;
 import kiwi.guieditor.model.config.PropertyConfig;
 import kiwi.guieditor.model.formator.UnknwonFormator;
-import kiwi.guieditor.utils.ArrayUtils;
 
 import mx.collections.ArrayCollection;
 
@@ -28,21 +27,25 @@ public class PropertyListMediator extends Mediator {
     public override function onRegister():void {
         addContextListener(OperateEvent.SELECTED, onSelected);
         addContextListener(OperateEvent.UNSELECTED, onReset);
+        addContextListener(OperateEvent.UPDATE, onUpdate);
         addViewListener(OperateEvent.UPDATE, onUpdate);
     }
 
     private function onUpdate(event:OperateEvent):void {
-        list.enabled = false;
-        list.enabled = true;
+        list.dataProvider = collection;
     }
 
     private function onSelected(event:OperateEvent):void {
         impl = ImplInfo(event.object);
-        collection = new ArrayCollection(impl.control.property.filter(function (property:PropertyConfig, i:int, array:Array):Boolean {
+        // 附加位置
+        var property:Array = [PropertyConfig.X, PropertyConfig.Y].concat(impl.control.property);
+        collection = new ArrayCollection(property.filter(function (property:PropertyConfig, i:int, array:Array):Boolean {
             return property.readOnly == false && !(property.formator is UnknwonFormator);
         }).map(function (property:PropertyConfig, i:int, array:Array):PropertyInfo {
                     return new PropertyInfo(impl, property);
-                }));
+                })
+        )
+        ;
         list.dataProvider = collection;
     }
 

@@ -9,7 +9,6 @@ package kiwi.guieditor.model {
 import flash.events.EventDispatcher;
 
 import kiwi.guieditor.model.config.EnumValueConfig;
-
 import kiwi.guieditor.model.config.PropertyConfig;
 import kiwi.guieditor.model.formator.IFormator;
 import kiwi.guieditor.utils.ArrayUtils;

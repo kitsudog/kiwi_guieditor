@@ -1,15 +1,14 @@
 package kiwi.guieditor.view {
 import kiwi.guieditor.event.EditorEvent;
-import kiwi.guieditor.event.OperateEvent;
 import kiwi.guieditor.model.config.CataConfig;
 import kiwi.guieditor.model.config.ControlConfig;
 import kiwi.guieditor.model.config.EditorConfig;
 
-import org.robotlegs.mvcs.Mediator;
-
 import mx.collections.ArrayList;
 import mx.containers.Accordion;
 import mx.containers.VBox;
+
+import org.robotlegs.mvcs.Mediator;
 
 /**
  * @author zhangming.luo
@@ -37,7 +36,7 @@ public class EditorMediator extends Mediator {
             vbox.label = cata.label;
             vbox.percentWidth = 100;
             vbox.percentHeight = 100;
-            var list:ControleList = new ControleList();
+            var list:ControlList = new ControlList();
             list.percentWidth = 100;
             list.percentHeight = 100;
             listMap[cata.name] = list;
@@ -47,8 +46,7 @@ public class EditorMediator extends Mediator {
         }
 
         function newControle(controle:ControlConfig):void {
-            var cata:Array = cataMap[controle.cata];
-            cata.push(controle);
+            cataMap[controle.cata].push(controle);
         }
 
         config.cata.forEach(function (cata:CataConfig, i:int, array:Array):void {
@@ -58,7 +56,7 @@ public class EditorMediator extends Mediator {
             newControle(controle);
         });
         for (var cata:String in cataMap) {
-            var list:ControleList = listMap[cata];
+            var list:ControlList = listMap[cata];
             list.dataProvider = new ArrayList(cataMap[cata]);
         }
     }

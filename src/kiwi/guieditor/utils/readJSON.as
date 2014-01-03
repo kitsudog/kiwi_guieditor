@@ -2,7 +2,6 @@ package kiwi.guieditor.utils {
 import json.frigga.Frigga;
 import json.frigga.report.FriggaReport;
 
-
 public function readJSON(path:String, schemaPath:String = null):* {
     var json:* = JSON.parse(readFile(path));
     if (schemaPath) {

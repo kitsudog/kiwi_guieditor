@@ -18,6 +18,8 @@ import kiwi.guieditor.model.config.EditorConfig;
 import kiwi.guieditor.view.AdapterMediator;
 import kiwi.guieditor.view.Canvas;
 import kiwi.guieditor.view.CanvasMediator;
+import kiwi.guieditor.view.ControlList;
+import kiwi.guieditor.view.ControlListMediator;
 import kiwi.guieditor.view.DisplayObjectAdapter;
 import kiwi.guieditor.view.Editor;
 import kiwi.guieditor.view.EditorMediator;
@@ -45,6 +47,7 @@ public class AppContext extends Context {
         mediatorMap.mapView(Menu, MenuMediator);
         mediatorMap.mapView(Canvas, CanvasMediator);
         mediatorMap.mapView(Editor, EditorMediator);
+        mediatorMap.mapView(ControlList, ControlListMediator);
         mediatorMap.mapView(SmartRender, SmartRenderMediator);
         mediatorMap.mapView(SmartEditor, SmartEditorMediator);
         mediatorMap.mapView(PropertyList, PropertyListMediator);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:List xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         dragEnabled="true"
+         doubleClickEnabled="true"
+         itemDoubleClick="dblClick(event)"
+        >
+    <mx:itemRenderer>
+        <fx:Component>
+            <mx:ListItemRenderer width="100%">
+            </mx:ListItemRenderer>
+        </fx:Component>
+    </mx:itemRenderer>
+    <fx:Script><![CDATA[
+        import kiwi.guieditor.event.OperateEvent;
+
+        import mx.events.ListEvent;
+
+        private function dblClick(event:ListEvent):void {
+            dispatchEvent(new OperateEvent(OperateEvent.NEW, event.itemRenderer.data, new Point(0, 0)));
+        }
+        ]]></fx:Script>
+</mx:List>

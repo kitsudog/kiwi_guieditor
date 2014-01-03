@@ -1,11 +1,11 @@
 package kiwi.guieditor.view {
-import kiwi.guieditor.event.EditorEvent;
+import flash.events.Event;
 
-import org.robotlegs.mvcs.Mediator;
+import kiwi.guieditor.event.EditorEvent;
 
 import mx.events.MenuEvent;
 
-import flash.events.Event;
+import org.robotlegs.mvcs.Mediator;
 
 /**
  * @author zhangming.luo

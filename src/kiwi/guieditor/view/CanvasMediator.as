@@ -1,4 +1,6 @@
 package kiwi.guieditor.view {
+import flash.events.Event;
+
 import kiwi.guieditor.event.OperateEvent;
 import kiwi.guieditor.model.ImplInfo;
 
@@ -35,17 +37,19 @@ public class CanvasMediator extends Mediator {
     }
 
     private function onAdd(event:OperateEvent):void {
-        var obj:IVisualElement = event.object;
+        var obj:DisplayObjectAdapter = event.object;
         if (event.pos) {
-            obj.x = event.pos.x;
-            obj.y = event.pos.y;
+            obj.orig.x = event.pos.x;
+            obj.orig.y = event.pos.y;
+            obj.updateMask();
         }
-        canvas..addElement(obj);
+        canvas.container.addElement(obj);
+        dispatch(new OperateEvent(OperateEvent.CLICK, obj));
     }
 
     private function onDel(event:OperateEvent):void {
         var obj:IVisualElement = event.object;
-        canvas.removeElement(obj);
+        canvas.container.removeElement(obj);
     }
 }
 }
