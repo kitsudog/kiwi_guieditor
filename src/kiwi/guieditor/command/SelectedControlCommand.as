@@ -12,6 +12,9 @@ public class SelectedControlCommand extends Command {
     public var info:EditorInfo;
 
     public override function execute():void {
+        if (info.getByDos(event.object) == info.currentSelected) {
+            return;
+        }
         if (info.currentSelected) {
             dispatch(new OperateEvent(OperateEvent.UNSELECTED, info.currentSelected));
         }

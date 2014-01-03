@@ -6,11 +6,26 @@ import flash.geom.Rectangle;
 
 import kiwi.guieditor.event.OperateEvent;
 
+import kiwi.guieditor.event.OperateEvent;
+
+import mx.controls.Menu;
+import mx.events.MenuEvent;
+
 import org.robotlegs.mvcs.Mediator;
 
 import spark.filters.GlowFilter;
 
 public class AdapterMediator extends Mediator {
+    private static const MENU_HANDLE_MAP:* = {//
+        "移除": OperateEvent.DEL//
+        , "替换": OperateEvent.REPLACE//
+        , "向上": OperateEvent.MOVE_UP//
+        , "向下": OperateEvent.MOVE_DOWN//
+        , "最上": OperateEvent.MOVE_TOP//
+        , "最下": OperateEvent.MOVE_BOTTOM//
+        , "复制到右方": OperateEvent.COPY_RIGHT//
+        , "复制到下方": OperateEvent.COPY_BOTTOM//
+    };
     [Inject]
     public var adapter:DisplayObjectAdapter;
     private var dragging:Boolean = false;
@@ -22,8 +37,35 @@ public class AdapterMediator extends Mediator {
     private var startSize:Point;
 
     override public function onRegister():void {
+        addViewListener(MouseEvent.ROLL_OVER, handleRoll);
+        addViewListener(MouseEvent.ROLL_OUT, handleRoll);
         addViewListener(MouseEvent.MOUSE_DOWN, handleMouse);
         addViewListener(MouseEvent.MOUSE_UP, handleMouse);
+        addViewListener(MouseEvent.RIGHT_CLICK, handlePopupMenu);
+    }
+
+    private function handlePopupMenu(event:MouseEvent):void {
+        var menuXML:XML = <root>
+            <menuitem label="移除" />
+            <menuitem label="替换" />
+            <menuitem type="seperator" />
+            <menuitem label="向上" />
+            <menuitem label="向下" />
+            <menuitem label="最上" />
+            <menuitem label="最下" />
+            <menuitem type="seperator" />
+            <menuitem label="复制到右方" />
+            <menuitem label="复制到下方" />
+        </root>
+        var menu:mx.controls.Menu = mx.controls.Menu.createMenu(null, menuXML, false);
+        menu.labelField = "@label";
+        menu.addEventListener(MenuEvent.ITEM_CLICK, handleMenu);
+        menu.show(event.stageX, event.stageY);
+    }
+
+    private function handleMenu(event:MenuEvent):void {
+        var eventName:String = MENU_HANDLE_MAP[event.label];
+        dispatch(new OperateEvent(eventName, adapter));
     }
 
     private function handleMouse(event:MouseEvent):void {
@@ -81,6 +123,7 @@ public class AdapterMediator extends Mediator {
         adapter.stage.removeEventListener(MouseEvent.MOUSE_MOVE, onStageMouseMove);
         adapter.stage.removeEventListener(MouseEvent.MOUSE_UP, onStageMouseUp);
         adapter.dragging = false;
+        dispatch(new OperateEvent(OperateEvent.UPDATE));
     }
 
     public function stopDrag():void {

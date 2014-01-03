@@ -25,7 +25,11 @@ public class PropertyListMediator extends Mediator {
     }
 
     private function onUpdate(event:OperateEvent):void {
-        list.dataProvider = collection;
+        for (var i:int = 0; i < collection.length; i++) {
+            collection.itemUpdated(collection.getItemAt(i));
+        }
+        list.enabled = false;
+        list.enabled = true;
     }
 
     private function onSelected(event:OperateEvent):void {
@@ -37,8 +41,7 @@ public class PropertyListMediator extends Mediator {
         }).map(function (property:PropertyConfig, i:int, array:Array):PropertyInfo {
                     return new PropertyInfo(impl, property);
                 })
-        )
-        ;
+        );
         list.dataProvider = collection;
     }
 
