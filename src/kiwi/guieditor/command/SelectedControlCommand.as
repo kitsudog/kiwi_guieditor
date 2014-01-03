@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Mage
- * Date: 14-1-1
- * Time: 下午10:16
- * To change this template use File | Settings | File Templates.
- */
 package kiwi.guieditor.command {
 import kiwi.guieditor.event.OperateEvent;
 import kiwi.guieditor.model.EditorInfo;

@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Mage
- * Date: 14-1-2
- * Time: 下午1:37
- * To change this template use File | Settings | File Templates.
- */
 package kiwi.guieditor.view {
 import flash.events.Event;
 import flash.events.MouseEvent;

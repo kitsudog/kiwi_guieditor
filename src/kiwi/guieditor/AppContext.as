@@ -1,6 +1,3 @@
-/**
- * Created by Mage on 13-12-31.
- */
 package kiwi.guieditor {
 import com.demonsters.debugger.MonsterDebugger;
 

@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Mage
- * Date: 14-1-3
- * Time: 上午10:59
- * To change this template use File | Settings | File Templates.
- */
 package kiwi.guieditor.view {
 import flash.display.DisplayObject;
 import flash.display.Sprite;
