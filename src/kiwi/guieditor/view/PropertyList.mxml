@@ -3,7 +3,7 @@
              xmlns:mx="library://ns.adobe.com/flex/mx"
              styleName="data"
              editable="true"
-             headerHeight="21"
+             headerHeight="23"
              rowHeight="23">
     <fx:Style>
         @namespace s "library://ns.adobe.com/flex/spark";

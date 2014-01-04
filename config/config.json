@@ -41,6 +41,44 @@
                     "value": "center"
                 }
             ]
+        },
+        {
+            "name": "direction",
+            "comment": "方向",
+            "format": "String",
+            "values": [
+                {
+                    "label": "垂直",
+                    "value": "vertical"
+                },
+                {
+                    "label": "水平",
+                    "value": "horizontal"
+                }
+            ]
+        },
+        {
+            "name": "placement",
+            "comment": "摆放位置",
+            "format": "String",
+            "values": [
+                {
+                    "label": "左",
+                    "value": "left"
+                },
+                {
+                    "label": "左",
+                    "value": "right"
+                },
+                {
+                    "label": "上",
+                    "value": "top"
+                },
+                {
+                    "label": "下",
+                    "value": "bottom"
+                }
+            ]
         }
     ],
     "cata": [
@@ -226,6 +264,276 @@
                 {
                     "name": "wordWrap",
                     "format": "Boolean"
+                }
+            ]
+        },
+        {
+            "comment": "列表",
+            "label": "列表",
+            "name": "list",
+            "cata": "def",
+            "$class": "fl.controls.List",
+            "factory": {
+                "$class": "fl.controls.List",
+                "width": 100,
+                "height": 100,
+                "dataProvider": {
+                    "$format": "Wrapper",
+                    "$class": "fl.data.DataProvider",
+                    "$value": [1, 2, 3]
+                }
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "def": 100,
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "def": 100,
+                    "format": "Int"
+                }
+            ]
+        },
+        {
+            "comment": "滚动条",
+            "label": "滚动条",
+            "name": "scroll",
+            "cata": "def",
+            "$class": "fl.controls.ScrollBar",
+            "factory": {
+                "$class": "fl.controls.ScrollBar",
+                "width": 15,
+                "height": 100
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int",
+                    "readOnly": true
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "def": 100
+                },
+                {
+                    "name": "direction",
+                    "format": "String",
+                    "enumRef": "direction"
+                }
+            ]
+        },
+        {
+            "comment": "单选框",
+            "label": "单选框",
+            "name": "radio",
+            "cata": "def",
+            "$class": "fl.controls.RadioButton",
+            "factory": {
+                "$class": "fl.controls.RadioButton",
+                "width": 100,
+                "height": 22,
+                "label": "单选"
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "readOnly": true
+                },
+                {
+                    "name": "label",
+                    "format": "String"
+                },
+                {
+                    "name": "labelPlacement",
+                    "format": "String",
+                    "enumRef": "placement"
+                },
+                {
+                    "name": "groupName",
+                    "format": "String"
+                },
+                {
+                    "name": "selected",
+                    "format": "Boolean"
+                }
+            ]
+        },
+        {
+            "comment": "复选框",
+            "label": "复选框",
+            "name": "checkbox",
+            "cata": "def",
+            "$class": "fl.controls.CheckBox",
+            "factory": {
+                "$class": "fl.controls.CheckBox",
+                "width": 100,
+                "height": 22,
+                "label": "复选"
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int",
+                    "readOnly": true
+                },
+                {
+                    "name": "label",
+                    "format": "String"
+                },
+                {
+                    "name": "labelPlacement",
+                    "format": "String",
+                    "enumRef": "placement"
+                },
+                {
+                    "name": "selected",
+                    "format": "Boolean"
+                }
+            ]
+        },
+        {
+            "comment": "组合框",
+            "label": "组合框",
+            "name": "combo",
+            "cata": "def",
+            "$class": "fl.controls.ComboBox",
+            "factory": {
+                "$class": "fl.controls.ComboBox",
+                "width": 100,
+                "height": 22,
+                "dataProvider": {
+                    "$format": "Wrapper",
+                    "$class": "fl.data.DataProvider",
+                    "$value": [1, 2, 3]
+                }
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int"
+                }
+            ]
+        },
+        {
+            "comment": "进度条",
+            "label": "进度条",
+            "name": "progress",
+            "cata": "def",
+            "$class": "fl.controls.ProgressBar",
+            "factory": {
+                "$class": "fl.controls.ProgressBar",
+                "width": 100,
+                "height": 15,
+                "mode": "manual",
+                "maximum": 100
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int"
+                },
+                {
+                    "name": "minimum",
+                    "format": "Double"
+                },
+                {
+                    "name": "maximum",
+                    "format": "Double"
+                },
+                {
+                    "name": "value",
+                    "format": "Double"
+                },
+                {
+                    "name": "mode",
+                    "format": "String",
+                    "readOnly": true
+                }
+            ]
+        },
+        {
+            "comment": "滑块",
+            "label": "滑块",
+            "name": "slider",
+            "cata": "def",
+            "$class": "fl.controls.Slider",
+            "factory": {
+                "$class": "fl.controls.Slider",
+                "width": 100,
+                "height": 15
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int"
+                }
+            ]
+        },
+        {
+            "comment": "文本框",
+            "label": "文本框",
+            "name": "textarea",
+            "cata": "def",
+            "$class": "fl.controls.TextArea",
+            "factory": {
+                "$class": "fl.controls.TextArea",
+                "width": 100,
+                "height": 100
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int"
+                }
+            ]
+        },
+        {
+            "comment": "单行文本框",
+            "label": "单行文本框",
+            "name": "textinput",
+            "cata": "def",
+            "$class": "fl.controls.TextInput",
+            "factory": {
+                "$class": "fl.controls.TextInput",
+                "width": 100,
+                "height": 25
+            },
+            "property": [
+                {
+                    "name": "width",
+                    "format": "Int"
+                },
+                {
+                    "name": "height",
+                    "format": "Int"
                 }
             ]
         }
